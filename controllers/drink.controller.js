@@ -2,7 +2,7 @@ import Drink from '../models/drink.model.js'
 
 export const createDrink = async (req, res) => {
   try {
-    const data = { ...req.body }
+    const data = { ...req.body, user_id: req.userId }
     const drink = await Drink.create(data)
     res.status(201).json(drink)
   } catch (error) {
@@ -44,6 +44,9 @@ export const updateDrink = async (req, res) => {
     const { id } = req.params
     const drink = await Drink.findById(id)
     if (!drink) return res.status(404).json({ message: 'Drink not found' })
+    if (!drink.user_id || drink.user_id.toString() !== req.userId) {
+      return res.status(403).json({ message: 'Not authorized to update this drink' })
+    }
     Object.assign(drink, req.body)
     await drink.save()
     res.json(drink)
