@@ -4,6 +4,7 @@ import {
   createDrink,
   listDrinks,
   listUserDrinks,
+  getDrink,
   updateDrink,
   deleteDrink
 } from '../controllers/drink.controller.js'
@@ -15,6 +16,7 @@ router.use(requireAuth)
 router.post('/', createDrink)
 router.get('/', listDrinks)
 router.get('/user/:userId', listUserDrinks)
+router.get('/:id', getDrink)
 router.put('/:id', updateDrink)
 router.delete('/:id', deleteDrink)
 

@@ -29,6 +29,17 @@ export const listUserDrinks = async (req, res) => {
   }
 }
 
+export const getDrink = async (req, res) => {
+  try {
+    const { id } = req.params
+    const drink = await Drink.findById(id)
+    if (!drink) return res.status(404).json({ message: 'Drink not found' })
+    res.json(drink)
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+}
+
 export const updateDrink = async (req, res) => {
   try {
     const { id } = req.params
