@@ -27,6 +27,10 @@ app.get('/', (req, res) => {
 import userRoutes from './routes/user.routes.js';
 app.use('/api/users', userRoutes);
 
+// drinks
+import drinkRoutes from './routes/drink.routes.js';
+app.use('/api/drinks', drinkRoutes);
+
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
 });
