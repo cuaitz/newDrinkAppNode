@@ -13,9 +13,6 @@ app.use(express.json());
 console.log('Connecting to MongoDB...');
 mongoose.connect(process.env.MONGODB_URI).then(() => {
     console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
-        console.log(`Listening on http://localhost:${PORT}`);
-    });
 }).catch((err) => {
     console.error('Error connecting to MongoDB', err);
     process.exit(1);
@@ -24,4 +21,12 @@ mongoose.connect(process.env.MONGODB_URI).then(() => {
 // rotas
 app.get('/', (req, res) => {
     res.send('Hello World!');
+});
+
+// users
+import userRoutes from './routes/user.routes.js';
+app.use('/api/users', userRoutes);
+
+app.listen(PORT, () => {
+    console.log(`Listening on http://localhost:${PORT}`);
 });
