@@ -60,6 +60,9 @@ export const deleteDrink = async (req, res) => {
     const { id } = req.params
     const drink = await Drink.findById(id)
     if (!drink) return res.status(404).json({ message: 'Drink not found' })
+    if (!drink.user_id || drink.user_id.toString() !== req.userId) {
+      return res.status(403).json({ message: 'Not authorized to update this drink' })
+    }
     await Drink.findByIdAndDelete(id)
     res.status(204).end()
   } catch (error) {
