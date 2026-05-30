@@ -21,8 +21,7 @@ export const listDrinks = async (req, res) => {
 
 export const listUserDrinks = async (req, res) => {
   try {
-    const { userId } = req.params
-    const drinks = await Drink.find({ user_id: userId }).sort({ createdAt: -1 })
+    const drinks = await Drink.find({ user_id: req.userId }).sort({ createdAt: -1 })
     res.json(drinks)
   } catch (error) {
     res.status(500).json({ message: error.message })

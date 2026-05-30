@@ -15,7 +15,7 @@ router.use(requireAuth)
 
 router.post('/', createDrink)
 router.get('/', listDrinks)
-router.get('/user/:userId', listUserDrinks)
+router.get('/user', listUserDrinks)
 router.get('/:id', getDrink)
 router.put('/:id', updateDrink)
 router.delete('/:id', deleteDrink)
