@@ -20,3 +20,13 @@ export const login = async (req, res) => {
     const token = generateToken(user)
     res.json({ token })
 }
+
+export const me = async (req, res) => {
+    try {
+        const user = await User.findById(req.userId).select('-password')
+        if (!user) return res.status(404).json({ message: 'User not found' })
+        res.json(user)
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}
