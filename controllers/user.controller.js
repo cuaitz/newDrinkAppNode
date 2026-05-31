@@ -6,7 +6,7 @@ export const register = async (req, res) => {
     try {
         const user = await User.create(req.body)
         const token = generateToken(user)
-        res.status(201).json({ token })
+        res.status(201).json({ token: token, id: user._id })
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
@@ -18,7 +18,7 @@ export const login = async (req, res) => {
     if (!user || !comparePassword(password, user.password))
         return res.status(401).json({ message: "invalid credentials" })
     const token = generateToken(user)
-    res.json({ token })
+    res.json({ token: token, id: user._id })
 }
 
 export const me = async (req, res) => {
